@@ -1,6 +1,30 @@
 import numpy as np
+from emoji import emojize
 
-def check_guess(guess: str, game: str, verbose=False) -> np.ndarray:
+guess_to_emoji = {
+    -1: ":black_large_square:",
+    0: ":yellow_square:",
+    1: ":green_square:"
+}
+valid_letters = "abcdefghijklmnopqrstuvwxyz"
+
+
+def take_turn(game, verbose=True) -> bool:
+    guess = input(f"Please enter your {len(game)} letter guess: ")
+    while len(guess) != len(game) or any([(l.lower() not in valid_letters) for l in guess]):
+        guess = input(f"Please enter your {len(game)} letter guess: ")
+
+    guess_eval = check_guess(guess, game)
+
+    if verbose:
+        output_str = " ".join([f"{guess_to_emoji[guess_eval[i]]}" for i in range(len(guess_eval))])
+        output_str += "\n" + "  ".join([l for l in guess])
+        print(emojize(output_str))
+
+    return (guess_eval == [1 for _ in range(len(game))]).all()
+
+
+def check_guess(guess: str, game: str) -> np.ndarray:
     game_dict = {l:[] for l in game}
 
     for i, l in enumerate(game):
