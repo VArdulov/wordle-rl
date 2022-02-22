@@ -61,6 +61,7 @@ Good job! it took you 3 turns to guess the correct word
 ```
 
 if you want to practive with more attempts try out something like:
+```
 python play_wordle.py --turn 9
 You have 9 guesses remaining
 Please enter your 5 letter guess: hello
@@ -100,6 +101,7 @@ Please enter your 5 letter guess: pliss
 ⬛ ⬛ ⬛ 🟨 ⬛
 p  l  i  s  s
 The word was sooey, better luck next time...
+```
 
 
 For now that's it hope you have fun with it!
