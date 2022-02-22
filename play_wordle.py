@@ -8,7 +8,6 @@ args.add_argument("--turns", "-t", default=6, type=int, help="maximum number of 
 if __name__ == "__main__":
     parsed_args = args.parse_args()
     max_turns = int(parsed_args.turns)
-    print(f"You have {max_turns} to complete this")
     turn = 0
 
     words = load("words.npy")
@@ -16,13 +15,13 @@ if __name__ == "__main__":
     game_over = False
     solved = False
     while not game_over:
+        print(f"You have {max_turns - turn} guesses remaining")
         turn += 1
         solved = take_turn(game)
-        print(solved)
         game_over = solved or (turn >= max_turns)
 
     if solved:
-        print("Good job!")
+        print(f"Good job! it took you {turn} turns to guess the correct word")
     else:
         print(f"The word was {game}, better luck next time...")
 
