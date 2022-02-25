@@ -1,3 +1,5 @@
+import numpy as np
+
 from tensorflow.keras.layers import Input, Dense, LSTM, Dropout, Flatten, RepeatVector, TimeDistributed
 from tensorflow.keras.model import Model
 
@@ -21,4 +23,13 @@ def create_recurrent_model(turns=6, wordlength=5):
     return model
 
 
+def determinstic_model_prediction(model, game):
+    inputs = [game.state, game.feedback]
+    prediction = np.argmax(model(inputs), axis=1)
+    return prediction
 
+def probabilistic_model_prediction(model, game):
+    inputs = [game.state, game.feedback]
+    prediction = model(inputs)
+    prediction = [np.random.choice(np.arange(0, alphabet_np.shape[0]), replace=True, p=prediction[row] for row in prediction]
+    return prediction
