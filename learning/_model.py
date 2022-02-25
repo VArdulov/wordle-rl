@@ -58,13 +58,14 @@ if __name__ == "__main__":
     print(d_pred)
     print(p_pred)
 
-    from _utils import prediction_to_word
+    from _utils import prediction_to_word, ints_to_word
+
     inputs = [np.expand_dims(game.state, 0), np.expand_dims(game.feedback, 0)]
     prediction = model(inputs).numpy().squeeze()
     d_word = prediction_to_word(prediction)
+    p_word = ints_to_word(p_pred)
 
-    p_word = "".join(alphabet_np[p_pred])#prediction_to_word(p_pred)
-
+    assert d_word == ints_to_word(d_pred), f"there is a misalignment between {d_word= } and {ints_to_word(d_pred)= }"
     print(d_word)
     print(p_word)
 
